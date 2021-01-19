@@ -1,0 +1,77 @@
+
+#include<bits/stdc++.h>
+
+using namespace std;
+void merge(int arr[],int l,int mid,int r)
+{
+    int i=0;
+    int j=0;
+    int li[mid+1-l];
+    int ri[r-mid];
+    for(int k=0;k<mid+1-l;k++)
+    {
+        li[k]=arr[l+k];
+        
+    }
+   
+    
+    for(int k=0;k<r-mid;k++)
+    {
+        ri[k]=arr[mid+1+k];
+    }
+   
+   
+    int k=l;
+    while(i<mid+1-l && j<r-mid)
+    {
+        if(li[i]<ri[j])
+        {
+            arr[k]=li[i];
+            k+=1;
+            i+=1;
+        }
+        else
+        {
+            arr[k]=ri[j];
+            k+=1;
+            j+=1;
+        }
+    }
+    while(i<mid+1-l)
+    {
+        arr[k]=li[i];
+        k+=1;
+        i+=1;
+    }
+    while(j<r-mid)
+    {
+        arr[k]=ri[j];
+        k+=1;
+        j+=1;
+    }
+    
+    
+}
+void mergesort(int arr[],int l,int r)
+{
+    if(l<r)
+    {
+        int mid=(l+r)/2;
+        mergesort(arr,l,mid);
+        mergesort(arr,mid+1,r);
+        merge(arr,l,mid,r);
+    }
+    
+}
+
+
+int kthSmallest(int arr[], int l, int r, int k) {
+    //code here
+  
+    mergesort(arr,l,r);
+    // for(int i=l;i<=r;i++)
+    // {
+    //     cout<<arr[i]<<endl;
+    // }
+    return arr[k-1];
+}
